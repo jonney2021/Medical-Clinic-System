@@ -1,0 +1,4 @@
+Doctor: 
+Name: john, Date of Birth: 11/11/1998, id: 1001, specialty: skin
+Doctor: 
+Name: john, Date of Birth: 12/12/1998, id: 1111, specialty: skin

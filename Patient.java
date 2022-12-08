@@ -1,6 +1,5 @@
 package project;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -54,33 +53,27 @@ public class Patient extends Person {
         System.out.print("Please enter the new patient's insurance company: ");
         String insuranceCompany = Utility.readString(16);
         patient1 = new Patient(name, dateOfBirth, insuranceCompany);
-        
+        // iterate over the elements in the patient list
+        for (Patient patient : patients) {
+            if (patient.getName().equals(patient1.getName()) && patient.getInsuranceCompany().equals(patient1.getInsuranceCompany()) ) {
+                System.out.println("\nAdd failed. This patient already exists.\n");
+                return;
+            }
+        }
+        // add the patient1 to the list
         patients.add(patient1);
         System.out.println("\n=========== Successfully added patient ================\n");
         System.out.println(patient1);
 
         // output the patient information to a text file.
-        FileOutputStream o = null;
-        byte[] buff = new byte[] {};
-        try {
-            File file = new File("C://JAVA_2_2022//project//data//patient.txt");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            buff = patient1.toString().getBytes();
-            o = new FileOutputStream(file, true);
-            o.write(buff);
-            o.flush();
-            o.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Utility.outputFile(patient1, "C://JAVA_2_2022//project//data//patient.txt");
 
     }// end method create
 
     // method to return the patients list
     public static void listPatient() {
         System.out.println("\n=========== Patients list =============");
+        // iterate over the elements in the patient list
         for (Patient patient : patients) {
             System.out.println(patient);
         }
@@ -89,6 +82,7 @@ public class Patient extends Person {
     // method to makeAppointment
     public static void makeAppointment() {
         System.out.println("\n============= Make a appointment ===============\n");
+        // Prompt the user to input information
         System.out.print("Please enter a appointment's id: ");
         int id = Utility.readInt();
         System.out.print("Please enter the month for the appointmentDate: ");
@@ -101,79 +95,71 @@ public class Patient extends Person {
 
         System.out.print("Please enter the patient's name: ");
         String patientName = Utility.readString(16);
-        for(Patient patient : patients){
-            if(!((patient.getName()).equals(patientName))){
-                throw new IllegalArgumentException(patientName + " is not in the patient list.");
+        // iterate over the elements in the patient list
+        for (Patient patient : patients) {
+            if (!((patient.getName()).equals(patientName))) {            
+                System.out.println(patientName + " is not in the patient list. Please add the patient information into system first.");
+                return;
             }
         }
 
         System.out.print("Please enter the doctor's name: ");
-        String doctorName = Utility.readString(16);     
-        for(Doctor doctor:doctors){
-            if(!((doctor.getName()).equals(doctorName))){
-                throw new IllegalArgumentException(doctorName + " is not in the doctor list.");
+        String doctorName = Utility.readString(16);
+        // iterate over the elements in the doctor list
+        for (Doctor doctor : doctors) {
+            if (!((doctor.getName()).equals(doctorName))) {
+                throw new IllegalArgumentException(doctorName + " is not in the doctor list. Please add the patient information into system first.");
             }
         }
-        Appointment appointment = new Appointment(id, appointmenDate, patientName, doctorName); 
+        Appointment appointment = new Appointment(id, appointmenDate, patientName, doctorName);
         appointments.add(appointment);
         System.out.println("\n===========Successfully made an appointment================\n");
         System.out.println(appointment);
 
         // output the appointment information to a text file.
-        FileOutputStream o = null;
-        byte[] buff = new byte[] {};
-        try {
-            File file = new File("C://JAVA_2_2022//project//data//appointment.txt");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            buff = appointment.toString().getBytes();
-            o = new FileOutputStream(file, true);
-            o.write(buff);
-            o.flush();
-            o.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Utility.outputFile(appointment, "C://JAVA_2_2022//project//data//appointment.txt");
     }// end method makeAppointment
 
     // method to return the appointment list
     public static void listAppointment() {
         System.out.println("\n=========== Appointment list: ============");
+        // iterate over the elements in the appointment list
         for (Appointment appointment : appointments) {
             System.out.println(appointment);
         }
     }// end method list
 
-
     // mathod to cancel an appointment
-    public static void cancelAppointment(){
+    public static void cancelAppointment() {
         System.out.println("\n================== Cancel Appointment ============");
-        System.out.print("Please enter the appointment Id(-1 exit): ");
+        System.out.print("Please enter the appointment id(-1 exit): ");
         int delId = Utility.readInt();
-        if(delId == -1){
-            System.out.println("============= Abandon delete appointment information =========");
+        if (delId == -1) {
+            System.out.println("============= Abandon cancel appointment information =========");
             return;
         }
-        char choice = Utility.readConfirmSelection(); // Note this method itself has loop
-        if(choice == 'Y'){//confirm deletion
-            Iterator<Appointment> iterator = appointments.iterator();  
-            while (iterator.hasNext()) {  
-                Appointment appointment = iterator.next();  
-                if (appointment.getAppointmentId() == delId){
+        char choice = Utility.readConfirmSelection(); // Note this method already has a loop
+        if (choice == 'Y') {// confirm deletion
+            Iterator<Appointment> iterator = appointments.iterator();
+            while (iterator.hasNext()) {
+                Appointment appointment = iterator.next();
+                if (appointment.getAppointmentId() == delId) {
                     iterator.remove();
+                    System.out.println("============ Cancelling appointment information successfully ==========");
+                }else{
+                    System.out.println("The appointment id you entered does not exist, please check the information.");
                 }
-            }     
-            System.out.println("============ Deleting appointment information successfully ==========");
-        }else{
-            System.out.println("=============Abandon delete appointment information=========");
+            }
+            // System.out.println("============ Cancelling appointment information successfully ==========");
+        } else {
+            System.out.println("=============Abandon cancelling appointment information=========");
         }
     }// end method cancelAppointment
 
-     // override toString
+    // override toString
     @Override
     public String toString() {
-        return "Patient: \n" + super.toString() + ", insuranceCompany: " + getInsuranceCompany();
+        return "Patient: \n" + super.toString() + ", insuranceCompany: " + getInsuranceCompany() + "\n";
     }// end method toString
 
-}
+}// end class Patient

@@ -1,10 +1,7 @@
 package project;
 // Doctor.java
 
-import java.io.*;
 import java.util.ArrayList;
-
-// import java.util.Date;
 
 /**
  * @author Yeming Hu
@@ -65,27 +62,13 @@ public class Doctor extends Person {
         String patientName = Utility.readString(16);
         System.out.print("Please enter the doctor's name: ");
         String doctorName = Utility.readString(16);
-        treatment= new Treatment(name, treatmentDate, patientName, doctorName);
+        treatment = new Treatment(name, treatmentDate, patientName, doctorName);
         treatments.add(treatment);
         System.out.println("\n=========== Successfully added treatment ================\n");
         System.out.println(treatment);
 
         // output the treatment information to a text file.
-        FileOutputStream o = null;
-        byte[] buff = new byte[] {};
-        try {
-            File file = new File("C://JAVA_2_2022//project//data//treatment.txt");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            buff = treatment.toString().getBytes();
-            o = new FileOutputStream(file, true);
-            o.write(buff);
-            o.flush();
-            o.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Utility.outputFile(treatment, "C://JAVA_2_2022//project//data//treatment.txt");
 
     }// end method addTreatment
 
@@ -114,32 +97,27 @@ public class Doctor extends Person {
         System.out.print("Please enter the new doctor's specialty: ");
         String specialty = Utility.readString(16);
         Doctor doctor1 = new Doctor(name, dateOfBirth, id, specialty);
+
+        // iterate over the elements in the doctor list
+        for (Doctor doctor : doctors) {
+            if (doctor.getId() == doctor1.getId()||doctor.getName().equals(doctor1.getName())) {
+                System.out.println("\nAdd failed. This doctor already exists.\n");
+                return;
+            }
+        }
         doctors.add(doctor1);
         System.out.println("\n===========Successfully added doctor================\n");
         System.out.println(doctor1);
 
-        // output the patient information to a text file.
-        FileOutputStream o = null;
-        byte[] buff = new byte[] {};
-        try {
-            File file = new File("C://JAVA_2_2022//project//data//doctor.txt");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            buff = doctor1.toString().getBytes();
-            o = new FileOutputStream(file, true);
-            o.write(buff);
-            o.flush();
-            o.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // output the treatment information to a text file.
+        Utility.outputFile(doctor1, "C://JAVA_2_2022//project//data//doctor.txt");
 
     }// end method createDoctor
 
     // method to return the doctors list
     public static void listDoctor() {
         System.out.println("\n=========== Doctor list ========== ");
+        // iterate over the elements in the doctor list
         for (Doctor doctor : doctors) {
             System.out.println(doctor);
         }
@@ -148,7 +126,7 @@ public class Doctor extends Person {
     // override method toString
     @Override
     public String toString() {
-        return "Doctor: \n" + super.toString() + ", id: " + getId() + ", specialty: " + getSpecialty();
+        return "Doctor: \n" + super.toString() + ", id: " + getId() + ", specialty: " + getSpecialty() + "\n";
     }// end method toString
 
 }// end class Doctor

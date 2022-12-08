@@ -67,7 +67,7 @@ public class Treatment {
 
     @Override
     public String toString() {
-        return "\nTreatment " + getTreatmentName() + " provided by the doctor  " + getDoctorName() + " will be used on "
+        return "Treatment " + getTreatmentName() + " provided by the doctor  " + getDoctorName() + " will be used on "
                 + getPatientName() + " on " + treatmentDate + "\n";
     }// end method to String
   

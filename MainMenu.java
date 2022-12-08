@@ -61,7 +61,7 @@ public class MainMenu {
                     exit();
                     break;
                 default:
-                    throw new IllegalArgumentException("Your choice is not correct, please enter a integer number(0-8):");
+                    throw new IllegalArgumentException("Your choice is not correct, please enter a integer number(0-9):");
             }
         } while (isFlag);
 
