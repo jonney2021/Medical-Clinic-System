@@ -1,2 +1,1 @@
-Appointment:
-Patient: tom made an appointment for 12/12/2022 with Doctor john, the appointment id: 11
+

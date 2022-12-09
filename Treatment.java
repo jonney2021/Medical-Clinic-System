@@ -1,5 +1,7 @@
 package project;
 
+import java.time.LocalDate;
+
 // Treatment.java
 
 /**
@@ -12,12 +14,12 @@ package project;
 public class Treatment {
     // data memebers
     private String treatmentName;
-    private Date treatmentDate;
+    private LocalDate treatmentDate;
     private String patientName;
     private String doctorName;
    
     // constructor with parameters
-    public Treatment(String treatmentName, Date treatmentDate, String patientName, String doctorName) {
+    public Treatment(String treatmentName, LocalDate treatmentDate, String patientName, String doctorName) {
         this.treatmentName = treatmentName;
         this.treatmentDate = treatmentDate;
         this.patientName = patientName;
@@ -55,12 +57,12 @@ public class Treatment {
     }// end method setDoctorName
 
     // method to set the treatment date
-    public void setTreatmentDate(Date treatmentDate) {
+    public void setTreatmentDate(LocalDate treatmentDate) {
         this.treatmentDate = treatmentDate;
     }// end method setTreatmentDate
 
     // method to return the treatmentDate
-    public Date getTreatmentDate() {
+    public LocalDate getTreatmentDate() {
         return treatmentDate;
     }// end method getTreatmentDate
 

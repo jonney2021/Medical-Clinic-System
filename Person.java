@@ -1,5 +1,7 @@
 package project;
 
+import java.time.LocalDate;
+
 // Person.java
 
 /**
@@ -12,10 +14,10 @@ package project;
 public abstract class Person {
     // data members
     private String name;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     // constructor with parameters
-    public Person(String name, Date dateOfBirth) {
+    public Person(String name, LocalDate dateOfBirth) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
     }// constructor with parameters
@@ -31,12 +33,12 @@ public abstract class Person {
     }// end method to setName
 
     // method to return the date of birth
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }// end method getDateOfBirth
 
     // method to set the date of birth
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }// end method setDateOfBirth
 

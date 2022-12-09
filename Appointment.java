@@ -1,6 +1,8 @@
 package project;
 // Appointment.java
 
+import java.time.LocalDate;
+
 /**
  * @author Yeming Hu
  * @version 1.0
@@ -11,7 +13,7 @@ package project;
 public class Appointment {
     // data memebers
     private int appointmentId;
-    private Date appointmentDate;
+    private LocalDate appointmentDate;
     private String patientName;
     private String doctorName;
 
@@ -19,7 +21,7 @@ public class Appointment {
     // }
 
     // constructor with paramters
-    public Appointment(int appointmentId, Date appointmentDate, String patientName, String doctorName) {
+    public Appointment(int appointmentId, LocalDate appointmentDate, String patientName, String doctorName) {
         this.appointmentId = appointmentId;
         this.appointmentDate = appointmentDate;
         this.patientName = patientName;
@@ -37,12 +39,12 @@ public class Appointment {
     }// end method setAppointmentId
 
     // method to return the appointmentDate
-    public Date getAppointmentDate() {
+    public LocalDate getAppointmentDate() {
         return appointmentDate;
     }// end method getAppointmentDate
 
     // method to set the appointmentDate
-    public void setAppointmentDate(Date appointmentDate) {
+    public void setAppointmentDate(LocalDate appointmentDate) {
         this.appointmentDate = appointmentDate;
     }// end method setAppointmentDate
 
@@ -65,6 +67,8 @@ public class Appointment {
     public void setDoctorName(String doctorName) {
         this.doctorName = doctorName;
     }// end method setDoctor
+
+    
 
     // override method toString
     @Override

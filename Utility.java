@@ -1,7 +1,6 @@
 package project;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 
 // Utility.java
 
@@ -24,25 +23,6 @@ public class Utility {
     private static Scanner scanner = new Scanner(System.in);
 
     /**
-     * Read a menu option entered by the keyboard, value: range from 0 to 9
-     * 
-     * @return 0——9
-     */
-    public static char readMenuSelection() {
-        char c;
-        for (;;) {
-            String str = readKeyBoard(1, false);// a string containing one character
-            c = str.charAt(0);// Convert string to char
-            if (c != '1' && c != '2' &&
-                    c != '3' && c != '4' && c != '5' && c != '6' && c != '7' && c != '8' && c != '9' && c != '0') {
-                System.out.print("Wrong selection, please re-enter:");
-            } else
-                break;
-        }
-        return c;
-    }
-
-    /**
      * Read a character by the keyboard
      * 
      * @return a char
@@ -53,21 +33,7 @@ public class Utility {
     }
 
     /**
-     * Read a character entered by the keyboard, if you press Enter directly,
-     * it will return the specified default value; otherwise, it will return the
-     * input character
-     * 
-     * @param defaultValue
-     * @return Default value or entered character
-     */
-    public static char readChar(char defaultValue) {
-        String str = readKeyBoard(1, true);// Either an empty string or a character
-        return (str.length() == 0) ? defaultValue : str.charAt(0);
-    }
-
-    /**
      * Read the integer entered by the keyboard,
-     * the length is less than 2 digits
      * 
      * @return int value
      */
@@ -86,31 +52,6 @@ public class Utility {
     }
 
     /**
-     * Read the integer or default value entered by the keyboard, if you press Enter
-     * directly,
-     * return the default value, otherwise return the entered integer
-     * 
-     * @param defaultValue
-     * @return int value defaultvalue
-     */
-    public static int readInt(int defaultValue) {
-        int n;
-        for (;;) {
-            String str = readKeyBoard(10, true);
-            if (str.equals("")) {
-                return defaultValue;
-            }
-            try {
-                n = Integer.parseInt(str);
-                break;
-            } catch (NumberFormatException e) {
-                System.out.print("Input error, please re-enter:");
-            }
-        }
-        return n;
-    }
-
-    /**
      * Read a string of specified length entered by the keyboard
      * 
      * @param limit
@@ -118,21 +59,6 @@ public class Utility {
      */
     public static String readString(int limit) {
         return readKeyBoard(limit, false);
-    }
-
-    /**
-     * Read the string or default value of the specified length entered by the
-     * keyboard,
-     * if you press Enter directly, return the default value, otherwise return the
-     * string
-     * 
-     * @param limit
-     * @param defaultValue
-     * @return String value
-     */
-    public static String readString(int limit, String defaultValue) {
-        String str = readKeyBoard(limit, true);
-        return str.equals("") ? defaultValue : str;
     }
 
     /**

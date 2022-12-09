@@ -10,7 +10,7 @@ package project;
 public class MainMenu {
 
     boolean isFlag = true;// control the display of menu
-    char key = ' '; // Receive user selection
+    int key; // Receive user selection
    
     // method to show main menu
     public void mainMenu() {
@@ -25,39 +25,47 @@ public class MainMenu {
             System.out.println("7 Show appointment list");
             System.out.println("8 Show treatment list");
             System.out.println("9 Cancel appointment list");
+            System.out.println("10 Modify appointment list");
+            System.out.println("11 PayBill");
             System.out.println("0 exit\n");
-            System.out.print("Please enter your choice (0-9): ");
+            System.out.print("Please enter your choice (0-11): ");
 
-            key = Utility.readChar();
+            key = Utility.readInt();
             switch (key) {
-                case '1':
+                case 1:
                     Patient.createPatient();
                     break;
-                case '2':
+                case 2:
                     Doctor.createDoctor();
                     break;  
-                case '3':
+                case 3:
                     Patient.makeAppointment();
                     break;
-                case '4':
+                case 4:
                     Doctor.addTreatment();
                     break;
-                case '5':
+                case 5:
                     Patient.listPatient();
                     break;
-                case '6':
+                case 6:
                     Doctor.listDoctor();
                     break;
-                case '7':
+                case 7:
                     Patient.listAppointment();
                     break;
-                case '8':
+                case 8:
                     Doctor.listTreatments();
                     break;  
-                case '9':
+                case 9:
                     Patient.cancelAppointment();
                     break;
-                case '0':
+                case 10:
+                    Patient.modifyAppointment();
+                    break;
+                case 11:
+                    Patient.payment();
+                    break;
+                case 0:
                     exit();
                     break;
                 default:

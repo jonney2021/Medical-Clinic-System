@@ -1,7 +1,9 @@
 package project;
 // Doctor.java
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+// import java.util.Date;
 
 /**
  * @author Yeming Hu
@@ -20,7 +22,7 @@ public class Doctor extends Person {
     static Treatment treatment;
 
     // constructor with parameters
-    public Doctor(String name, Date dateOfBirth, int id, String specialty) {
+    public Doctor(String name, LocalDate dateOfBirth, int id, String specialty) {
         super(name, dateOfBirth);
         this.id = id;
         this.specialty = specialty;
@@ -57,7 +59,12 @@ public class Doctor extends Person {
         int day = Utility.readInt();
         System.out.print("Please enter the year of the treatment date: ");
         int year = Utility.readInt();
-        Date treatmentDate = new Date(month, day, year);
+        LocalDate treatmentDate = LocalDate.of(year,month,day);
+        
+        if(treatmentDate.isBefore(LocalDate.now())){
+            System.out.println("There is an error in your entry. Your appointment date must be after today");
+            return;
+        }
         System.out.print("Please enter the patient's name: ");
         String patientName = Utility.readString(16);
         System.out.print("Please enter the doctor's name: ");
@@ -91,7 +98,9 @@ public class Doctor extends Person {
         int day = Utility.readInt();
         System.out.print("Please enter the year for the new doctor's date of birth: ");
         int year = Utility.readInt();
-        Date dateOfBirth = new Date(month, day, year);
+        // Date dateOfBirth = new Date(month, day, year);
+        LocalDate dateOfBirth = LocalDate.of(year,month,day);
+        
         System.out.print("Please enter the new doctor's id: ");
         int id = Utility.readInt();
         System.out.print("Please enter the new doctor's specialty: ");
@@ -130,3 +139,5 @@ public class Doctor extends Person {
     }// end method toString
 
 }// end class Doctor
+
+

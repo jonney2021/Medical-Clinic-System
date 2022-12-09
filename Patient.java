@@ -1,5 +1,6 @@
 package project;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -16,13 +17,13 @@ public class Patient extends Person {
     // data members
     private String insuranceCompany;
     static ArrayList<Patient> patients = new ArrayList<>();
-    static ArrayList<Doctor> doctors = new ArrayList<>();
+    // static ArrayList<Doctor> doctors = new ArrayList<>();
     static ArrayList<Appointment> appointments = new ArrayList<>();
     static ArrayList<Treatment> treatments = new ArrayList<>();
     static Patient patient1;
 
     // constructor with parameters
-    public Patient(String name, Date dateOfBirth, String insuranceCompany) {
+    public Patient(String name, LocalDate dateOfBirth, String insuranceCompany) {
         super(name, dateOfBirth);
         this.insuranceCompany = insuranceCompany;
     }// end constructor with parameters
@@ -49,7 +50,8 @@ public class Patient extends Person {
         System.out.print("Please enter the year for the new patient's date of birth: ");
         int year = Utility.readInt();
 
-        Date dateOfBirth = new Date(month, day, year);
+        LocalDate dateOfBirth = LocalDate.of(year, month, day);
+        
         System.out.print("Please enter the new patient's insurance company: ");
         String insuranceCompany = Utility.readString(16);
         patient1 = new Patient(name, dateOfBirth, insuranceCompany);
@@ -91,26 +93,32 @@ public class Patient extends Person {
         int day = Utility.readInt();
         System.out.print("Please enter the year for the appointmentDate: ");
         int year = Utility.readInt();
-        Date appointmenDate = new Date(month, day, year);
+        LocalDate appointmenDate = LocalDate.of(year, month, day);
+
+        // appointment date must be after today
+        if(appointmenDate.isBefore(LocalDate.now())){
+            System.out.println("There is an error in your entry. Your appointment date must be after today");
+            return;
+        }
 
         System.out.print("Please enter the patient's name: ");
         String patientName = Utility.readString(16);
-        // iterate over the elements in the patient list
-        for (Patient patient : patients) {
-            if (!((patient.getName()).equals(patientName))) {            
-                System.out.println(patientName + " is not in the patient list. Please add the patient information into system first.");
+
+        // noneMatch(): According to the judgment condition, if all elements do not match, show this patient is not in the list
+        if(patients.stream().noneMatch(o -> o.getName().equals(patientName))){
+            System.out.println(patientName + " is not in the patient list. Please add the patient information into system first.");
                 return;
-            }
         }
 
         System.out.print("Please enter the doctor's name: ");
         String doctorName = Utility.readString(16);
-        // iterate over the elements in the doctor list
-        for (Doctor doctor : doctors) {
-            if (!((doctor.getName()).equals(doctorName))) {
-                throw new IllegalArgumentException(doctorName + " is not in the doctor list. Please add the patient information into system first.");
-            }
+
+        // noneMatch(): According to the judgment condition, if all elements do not match, show this patient is not in the list
+        if(Doctor.doctors.stream().noneMatch(o -> o.getName().equals(doctorName))){
+            System.out.println(doctorName + " is not in the doctor list. Please add the doctor information into system first.");
+                return;
         }
+
         Appointment appointment = new Appointment(id, appointmenDate, patientName, doctorName);
         appointments.add(appointment);
         System.out.println("\n===========Successfully made an appointment================\n");
@@ -128,6 +136,72 @@ public class Patient extends Person {
             System.out.println(appointment);
         }
     }// end method list
+
+
+    // method to modify the appointment
+    public static void modifyAppointment(){
+        System.out.println("=============Modify Appointment================");
+        System.out.println("Please select the appointment number to be modified (-1 to exit):");
+        int updateId = Utility.readInt();
+        if(updateId == -1){
+            System.out.println("==========Abandon modify appointment information=============");
+        }
+
+        // iterate over the elements in the appointment list
+        for (Appointment appointment : appointments) {
+            if(appointment.getAppointmentId() == updateId){               
+                System.out.print("month("+ appointment.getAppointmentDate()+"):");
+                int month = Utility.readInt();
+                System.out.print("day("+ appointment.getAppointmentDate()+"):");
+                int day = Utility.readInt();
+                System.out.print("year("+ appointment.getAppointmentDate()+"):");
+                int year = Utility.readInt();
+                LocalDate appointmentDate = LocalDate.of(year, month, day);
+                // appointment date must be after today
+                if(appointmentDate.isBefore(LocalDate.now())){
+                    System.out.println("There is an error in your entry. Your appointment date must be after today");
+                    return;
+                }       
+                appointment.setAppointmentDate(appointmentDate);
+          
+                System.out.println("patientName("+appointment.getPatientName()+"):");
+                //if the user presses Enter directly, it means that the information will not be modified, and the default is ""
+                String patientName = Utility.readString(16);
+                if(!"".equals(patientName)){//modify
+                    appointment.setPatientName(patientName);
+                }
+
+                // noneMatch(): According to the judgment condition, if all elements do not match, show this patient is not in the list
+                if(patients.stream().noneMatch(o -> o.getName().equals(patientName))){
+                    System.out.println(patientName + " is not in the patient list. Please add the patient information into system first.");
+                        return;
+                }
+
+                System.out.print("doctorName("+ appointment.getDoctorName()+"):");
+                String doctorName = Utility.readString(16);
+                if(!"".equals(doctorName)){//modify
+                    appointment.setDoctorName(doctorName);
+                }
+
+                // noneMatch(): According to the judgment condition, if all elements do not match, show this patient is not in the list
+                if(Doctor.doctors.stream().noneMatch(o -> o.getName().equals(doctorName))){
+                    System.out.println(doctorName + " is not in the doctor list. Please add the doctor information into system first.");
+                        return;
+                }
+
+                System.out.println("\n===========Successfully modify an appointment================\n");
+                System.out.println(appointment);
+            }else{
+                System.out.println("==========Modify appointment number does not exist==========");
+                return;
+            }
+        }
+        // if(appointment == null){
+        //     System.out.println("==========Modify appointment number does not exist==========");
+        //     return;
+        // }
+    }
+
 
     // mathod to cancel an appointment
     public static void cancelAppointment() {
@@ -150,11 +224,46 @@ public class Patient extends Person {
                     System.out.println("The appointment id you entered does not exist, please check the information.");
                 }
             }
-            // System.out.println("============ Cancelling appointment information successfully ==========");
+
+
         } else {
             System.out.println("=============Abandon cancelling appointment information=========");
         }
     }// end method cancelAppointment
+
+    //method for payments
+    public static void payment() {
+
+        System.out.println("Choose a payment method");
+        System.out.println("1. Cash");
+        System.out.println("2. Credit");
+        System.out.println("3. Debit");
+        int answer = Utility.readInt();
+
+        switch (answer) {
+            case 1:
+                System.out.println("***********************");
+                System.out.println("Bill will be paid in cash.\nThank you!");
+                System.out.println("***********************");
+                break;
+            case 2:
+                System.out.println("\nPlease enter your credit card number.");
+                String cc = Utility.readString(16);
+                System.out.println("Please enter the name of the credit card owner.");
+                String name = Utility.readString(16);
+                System.out.println("Enter the 3 digit verification code.");
+                int code = Utility.readInt();
+                System.out.println("***********************");
+                System.out.println("Bill will be paid by credit.\nCustomer name: " + name + "\nCredit Card #: " + cc + "\nVerification code: " + code + ".\nThank you.");
+                System.out.println("***********************");
+                break;
+            case 3:
+                System.out.println("***********************");  
+                System.out.println("Bill will be paid by debit.\nThank you!");
+                System.out.println("***********************");
+                break;
+        }
+    }
 
     // override toString
     @Override
