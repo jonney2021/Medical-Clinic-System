@@ -51,6 +51,7 @@ public class Doctor extends Person {
     // method to addTreatment
     public static void addTreatment() {
         System.out.println("\n============= Add a treatment ===============\n");
+        System.out.println("Before you add a treatment, make sure the patient and doctor information is added to the list.");
         System.out.print("Please enter the treatment's name: ");
         String name = Utility.readString(12);
         System.out.print("Please enter the month of the treatment date: ");
@@ -63,13 +64,28 @@ public class Doctor extends Person {
             LocalDate treatmentDate = LocalDate.of(year,month,day);
             
             if(treatmentDate.isBefore(LocalDate.now())){
-                System.out.println("There is an error in your entry. Your appointment date must be after today");
+                System.out.println("There is an error in your entry. Your treatment date must be after today");
                 return;
             }
             System.out.print("Please enter the patient's name: ");
             String patientName = Utility.readString(16);
+            // noneMatch(): According to the judgment condition, if all elements do not
+            // match, show this patient is not in the list
+            if (Patient.patients.stream().noneMatch(o -> o.getName().equals(patientName))) {
+                System.out.println(
+                        patientName + " is not in the patient list. Please add the patient information into system first.");
+                return;
+            }
             System.out.print("Please enter the doctor's name: ");
             String doctorName = Utility.readString(16);
+            // noneMatch(): According to the judgment condition, if all elements do not
+            // match, show this patient is not in the list
+            if (Doctor.doctors.stream().noneMatch(o -> o.getName().equals(doctorName))) {
+                System.out.println(
+                        doctorName + " is not in the doctor list. Please add the doctor information into system first.");
+                return;
+            }
+
             treatment = new Treatment(name, treatmentDate, patientName, doctorName);
             treatments.add(treatment);
             System.out.println("\n=========== Successfully added treatment ================\n");

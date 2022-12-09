@@ -88,6 +88,7 @@ public class Patient extends Person {
     // method to makeAppointment
     public static void makeAppointment() {
         System.out.println("\n============= Make a appointment ===============\n");
+        System.out.println("Before you make an appointment, make sure the patient and doctor information is added to the list.");
         // Prompt the user to input information
         System.out.print("Please enter a appointment's id: ");
         int id = Utility.readInt();
@@ -156,6 +157,7 @@ public class Patient extends Person {
         // Set a variable index to record whether an appointment was found
         int index = -1;
         System.out.println("\n=============Modify Appointment================");
+        System.out.println("Before you modify an appointment, make sure the patient and doctor information is added to the list.");
         System.out.println("Please select the appointment number to be modified (-1 to exit):");
         int updateId = Utility.readInt();
         if (updateId == -1) {
@@ -165,7 +167,7 @@ public class Patient extends Person {
         // iterate over the elements in the appointment list
         for (Appointment appointment : appointments) {
             if (appointment.getAppointmentId() == updateId) {
-                // If the appointment number is matched, add 1 to this variable
+                // If the appointment number is matched, add 1 to index
                 index++;
                 System.out.print("month(" + appointment.getAppointmentDate() + "):");
                 int month = Utility.readInt();
@@ -182,8 +184,6 @@ public class Patient extends Person {
                 appointment.setAppointmentDate(appointmentDate);
 
                 System.out.println("patientName(" + appointment.getPatientName() + "):");
-                // if the user presses Enter directly, it means that the information will not be
-                // modified, and the default is ""
                 String patientName = Utility.readString(16);
                 if (!"".equals(patientName)) {// modify
                     appointment.setPatientName(patientName);
