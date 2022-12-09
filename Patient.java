@@ -43,32 +43,36 @@ public class Patient extends Person {
         System.out.print("Please enter the new patient's name: ");
         String name = Utility.readString(16);
         System.out.print("Please enter the month for the new patient's date of birth: ");
-        int month = Utility.readInt();
-        System.out.print("Please enter the day for the new patient's date of birth: ");
-        int day = Utility.readInt();
-        System.out.print("Please enter the year for the new patient's date of birth: ");
-        int year = Utility.readInt();
+        try{
+            int month = Utility.readInt();
+            System.out.print("Please enter the day for the new patient's date of birth: ");
+            int day = Utility.readInt();
+            System.out.print("Please enter the year for the new patient's date of birth: ");
+            int year = Utility.readInt();
 
-        LocalDate dateOfBirth = LocalDate.of(year, month, day);
+            LocalDate dateOfBirth = LocalDate.of(year, month, day);
 
-        System.out.print("Please enter the new patient's insurance company: ");
-        String insuranceCompany = Utility.readString(16);
-        patient1 = new Patient(name, dateOfBirth, insuranceCompany);
-        // iterate over the elements in the patient list
-        for (Patient patient : patients) {
-            if (patient.getName().equals(patient1.getName())
-                    && patient.getInsuranceCompany().equals(patient1.getInsuranceCompany())) {
-                System.out.println("\nAdd failed. This patient already exists.\n");
-                return;
+            System.out.print("Please enter the new patient's insurance company: ");
+            String insuranceCompany = Utility.readString(16);
+            patient1 = new Patient(name, dateOfBirth, insuranceCompany);
+            // iterate over the elements in the patient list
+            for (Patient patient : patients) {
+                if (patient.getName().equals(patient1.getName())
+                        && patient.getInsuranceCompany().equals(patient1.getInsuranceCompany())) {
+                    System.out.println("\nAdd failed. This patient already exists.\n");
+                    return;
+                }
             }
-        }
-        // add the patient1 to the list
-        patients.add(patient1);
-        System.out.println("\n=========== Successfully added patient ================\n");
-        System.out.println(patient1);
+            // add the patient1 to the list
+            patients.add(patient1);
+            System.out.println("\n=========== Successfully added patient ================\n");
+            System.out.println(patient1);
 
-        // output the patient information to a text file.
-        Utility.outputFile(patient1, "C://JAVA_2_2022//project//data//patient.txt");
+            // output the patient information to a text file.
+            Utility.outputFile(patient1, "C://JAVA_2_2022//project//data//patient.txt");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
     }// end method create
 
@@ -88,50 +92,54 @@ public class Patient extends Person {
         System.out.print("Please enter a appointment's id: ");
         int id = Utility.readInt();
         System.out.print("Please enter the month for the appointmentDate: ");
-        int month = Utility.readInt();
-        System.out.print("Please enter the day for the appointmentDate: ");
-        int day = Utility.readInt();
-        System.out.print("Please enter the year for the appointmentDate: ");
-        int year = Utility.readInt();
-        LocalDate appointmenDate = LocalDate.of(year, month, day);
+        try{
+            int month = Utility.readInt();
+            System.out.print("Please enter the day for the appointmentDate: ");
+            int day = Utility.readInt();
+            System.out.print("Please enter the year for the appointmentDate: ");
+            int year = Utility.readInt();
+            LocalDate appointmenDate = LocalDate.of(year, month, day);
 
-        // appointment date must be after today
-        if (appointmenDate.isBefore(LocalDate.now())) {
-            System.out.println("There is an error in your entry. Your appointment date must be after today");
-            return;
+            // appointment date must be after today
+            if (appointmenDate.isBefore(LocalDate.now())) {
+                System.out.println("There is an error in your entry. Your appointment date must be after today");
+                return;
+            }
+
+            System.out.print("Please enter the patient's name: ");
+            String patientName = Utility.readString(16);
+
+            // After Java8, we can use stream noneMatch() method, it is a short-circuiting
+            // terminal operation.
+            // noneMatch(): According to the judgment condition, if all elements do not
+            // match, show this patient is not in the list
+            if (patients.stream().noneMatch(o -> o.getName().equals(patientName))) {
+                System.out.println(
+                        patientName + " is not in the patient list. Please add the patient information into system first.");
+                return;
+            }
+
+            System.out.print("Please enter the doctor's name: ");
+            String doctorName = Utility.readString(16);
+
+            // noneMatch(): According to the judgment condition, if all elements do not
+            // match, show this patient is not in the list
+            if (Doctor.doctors.stream().noneMatch(o -> o.getName().equals(doctorName))) {
+                System.out.println(
+                        doctorName + " is not in the doctor list. Please add the doctor information into system first.");
+                return;
+            }
+
+            Appointment appointment = new Appointment(id, appointmenDate, patientName, doctorName);
+            appointments.add(appointment);
+            System.out.println("\n===========Successfully made an appointment================\n");
+            System.out.println(appointment);
+
+            // output the appointment information to a text file.
+            Utility.outputFile(appointment, "C://JAVA_2_2022//project//data//appointment.txt");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
-
-        System.out.print("Please enter the patient's name: ");
-        String patientName = Utility.readString(16);
-
-        // After Java8, we can use stream noneMatch() method, it is a short-circuiting
-        // terminal operation.
-        // noneMatch(): According to the judgment condition, if all elements do not
-        // match, show this patient is not in the list
-        if (patients.stream().noneMatch(o -> o.getName().equals(patientName))) {
-            System.out.println(
-                    patientName + " is not in the patient list. Please add the patient information into system first.");
-            return;
-        }
-
-        System.out.print("Please enter the doctor's name: ");
-        String doctorName = Utility.readString(16);
-
-        // noneMatch(): According to the judgment condition, if all elements do not
-        // match, show this patient is not in the list
-        if (Doctor.doctors.stream().noneMatch(o -> o.getName().equals(doctorName))) {
-            System.out.println(
-                    doctorName + " is not in the doctor list. Please add the doctor information into system first.");
-            return;
-        }
-
-        Appointment appointment = new Appointment(id, appointmenDate, patientName, doctorName);
-        appointments.add(appointment);
-        System.out.println("\n===========Successfully made an appointment================\n");
-        System.out.println(appointment);
-
-        // output the appointment information to a text file.
-        Utility.outputFile(appointment, "C://JAVA_2_2022//project//data//appointment.txt");
     }// end method makeAppointment
 
     // method to return the appointment list
