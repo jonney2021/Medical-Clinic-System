@@ -5,7 +5,7 @@ import java.io.*;
 // Utility.java
 
 /**
- * @author Yeming Hu
+ * @author Yeming Hu, Mathew, Alexandra
  * @version 1.0
  * @since December 6, 2022
  */
@@ -40,7 +40,7 @@ public class Utility {
     public static int readInt() {
         int n;
         for (;;) {
-            String str = readKeyBoard(10, false);
+            String str = readKeyBoard(4, false);
             try {
                 n = Integer.parseInt(str);// convert string to integer
                 break;
@@ -135,10 +135,12 @@ public class Utility {
         byte[] buff = new byte[] {};
         try {
             File file = new File(path);
+            // If the file does not exist, create a new one
             if (!file.exists()) {
                 file.createNewFile();
             }
             buff = obj.toString().getBytes();
+            // append:true start writing from the end of the file and continue after the original data of the file
             o = new FileOutputStream(file, true);
             o.write(buff);
             o.flush();

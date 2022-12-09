@@ -1,7 +1,7 @@
 package project;
 //ClinicApp.java
 /**
- * @author Yeming Hu
+ * @author Yeming Hu, Mathew, Alexandra
  * @version 1.0
  * @since December 6, 2022
  */

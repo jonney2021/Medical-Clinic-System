@@ -4,7 +4,7 @@ package project;
 import java.time.LocalDate;
 
 /**
- * @author Yeming Hu
+ * @author Yeming Hu, Mathew, Alexandra
  * @version 1.0
  * @since December 7, 2022
  */

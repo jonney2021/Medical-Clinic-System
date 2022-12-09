@@ -5,7 +5,7 @@ import java.time.LocalDate;
 // Treatment.java
 
 /**
- * @author Yeming Hu
+ * @author Yeming Hu, Mathew, Alexandra
  * @version 1.0
  * @since December 7, 2022
  */

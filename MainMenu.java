@@ -2,15 +2,18 @@ package project;
 // MainMenu.java
 
 /**
- * @author Yeming Hu
+ * @author Yeming Hu, Mathew, Alexandra
  * @version 1.0
  * @since December 6, 2022
  */
+
 // class declaration
 public class MainMenu {
 
-    boolean isFlag = true;// control the display of menu
-    int key; // Receive user selection
+    // control the display of menu
+    boolean isFlag = true;
+    // Receive user selection
+    int key; 
    
     // method to show main menu
     public void mainMenu() {
