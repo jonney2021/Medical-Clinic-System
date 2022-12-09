@@ -23,16 +23,6 @@ public class Utility {
     private static Scanner scanner = new Scanner(System.in);
 
     /**
-     * Read a character by the keyboard
-     * 
-     * @return a char
-     */
-    public static char readChar() {
-        String str = readKeyBoard(1, false);
-        return str.charAt(0);
-    }
-
-    /**
      * Read the integer entered by the keyboard,
      * 
      * @return int value
