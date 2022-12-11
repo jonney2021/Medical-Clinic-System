@@ -32,48 +32,51 @@ public class MainMenu {
             System.out.println("11 PayBill");
             System.out.println("0 exit\n");
             System.out.print("Please enter your choice (0-11): ");
-
-            key = Utility.readInt();
-            switch (key) {
-                case 1:
-                    Patient.createPatient();
-                    break;
-                case 2:
-                    Doctor.createDoctor();
-                    break;  
-                case 3:
-                    Patient.makeAppointment();
-                    break;
-                case 4:
-                    Doctor.addTreatment();
-                    break;
-                case 5:
-                    Patient.listPatient();
-                    break;
-                case 6:
-                    Doctor.listDoctor();
-                    break;
-                case 7:
-                    Patient.listAppointment();
-                    break;
-                case 8:
-                    Doctor.listTreatments();
-                    break;  
-                case 9:
-                    Patient.cancelAppointment();
-                    break;
-                case 10:
-                    Patient.modifyAppointment();
-                    break;
-                case 11:
-                    Patient.payment();
-                    break;
-                case 0:
-                    exit();
-                    break;
-                default:
-                    throw new IllegalArgumentException("Your choice is not correct, please enter a integer number(0-9):");
-            }
+            try{
+                key = Utility.readInt();
+                switch (key) {
+                    case 1:
+                        Patient.createPatient();
+                        break;
+                    case 2:
+                        Doctor.createDoctor();
+                        break;  
+                    case 3:
+                        Patient.makeAppointment();
+                        break;
+                    case 4:
+                        Doctor.addTreatment();
+                        break;
+                    case 5:
+                        Patient.listPatient();
+                        break;
+                    case 6:
+                        Doctor.listDoctor();
+                        break;
+                    case 7:
+                        Patient.listAppointment();
+                        break;
+                    case 8:
+                        Doctor.listTreatments();
+                        break;  
+                    case 9:
+                        Patient.cancelAppointment();
+                        break;
+                    case 10:
+                        Patient.modifyAppointment();
+                        break;
+                    case 11:
+                        Patient.payment();
+                        break;
+                    case 0:
+                        exit();
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Your choice is not correct, please enter a integer number(0-11):");
+                }
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }     
         } while (isFlag);
 
     }// end method mainMenu

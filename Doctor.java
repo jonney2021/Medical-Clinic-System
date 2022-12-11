@@ -51,19 +51,20 @@ public class Doctor extends Person {
     // method to addTreatment
     public static void addTreatment() {
         System.out.println("\n============= Add a treatment ===============\n");
-        System.out.println("Before you add a treatment, make sure the patient and doctor information is added to the list.");
+        System.out.println(
+                "Before you add a treatment, make sure the patient and doctor information is added to the list.");
         System.out.print("Please enter the treatment's name: ");
-        String name = Utility.readString(12);
-        System.out.print("Please enter the month of the treatment date: ");
-        try{
+        try {
+            String name = Utility.readString(12);
+            System.out.print("Please enter the month of the treatment date: ");
             int month = Utility.readInt();
             System.out.print("Please enter the day of the treatment date: ");
             int day = Utility.readInt();
             System.out.print("Please enter the year of the treatment date: ");
             int year = Utility.readInt();
-            LocalDate treatmentDate = LocalDate.of(year,month,day);
-            
-            if(treatmentDate.isBefore(LocalDate.now())){
+            LocalDate treatmentDate = LocalDate.of(year, month, day);
+
+            if (treatmentDate.isBefore(LocalDate.now())) {
                 System.out.println("There is an error in your entry. Your treatment date must be after today");
                 return;
             }
@@ -73,7 +74,8 @@ public class Doctor extends Person {
             // match, show this patient is not in the list
             if (Patient.patients.stream().noneMatch(o -> o.getName().equals(patientName))) {
                 System.out.println(
-                        patientName + " is not in the patient list. Please add the patient information into system first.");
+                        patientName
+                                + " is not in the patient list. Please add the patient information into system first.");
                 return;
             }
             System.out.print("Please enter the doctor's name: ");
@@ -82,7 +84,8 @@ public class Doctor extends Person {
             // match, show this patient is not in the list
             if (Doctor.doctors.stream().noneMatch(o -> o.getName().equals(doctorName))) {
                 System.out.println(
-                        doctorName + " is not in the doctor list. Please add the doctor information into system first.");
+                        doctorName
+                                + " is not in the doctor list. Please add the doctor information into system first.");
                 return;
             }
 
@@ -93,7 +96,7 @@ public class Doctor extends Person {
 
             // output the treatment information to a text file.
             Utility.outputFile(treatment, "C://JAVA_2_2022//project//data//treatment.txt");
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -111,17 +114,18 @@ public class Doctor extends Person {
     public static void createDoctor() {
         System.out.println("\n============= Add a doctor ===============\n");
         System.out.print("Please enter the new doctor's name: ");
-        String name = Utility.readString(12);
-        System.out.print("Please enter the month for the new doctor's date of birth: ");
-        try{
+        try {
+            String name = Utility.readString(12);
+            System.out.print("Please enter the month for the new doctor's date of birth: ");
+        
             int month = Utility.readInt();
             System.out.print("Please enter the day for the new doctor's date of birth: ");
             int day = Utility.readInt();
             System.out.print("Please enter the year for the new doctor's date of birth: ");
             int year = Utility.readInt();
             // Date dateOfBirth = new Date(month, day, year);
-            LocalDate dateOfBirth = LocalDate.of(year,month,day);
-            
+            LocalDate dateOfBirth = LocalDate.of(year, month, day);
+
             System.out.print("Please enter the new doctor's id: ");
             int id = Utility.readInt();
             System.out.print("Please enter the new doctor's specialty: ");
@@ -130,8 +134,8 @@ public class Doctor extends Person {
 
             // iterate over the elements in the doctor list
             for (Doctor doctor : doctors) {
-                if (doctor.getId() == doctor1.getId()||doctor.getName().equals(doctor1.getName())) {
-                    System.out.println("\nAdd failed. This doctor already exists.\n");
+                if (doctor.getId() == doctor1.getId() || doctor.getName().equals(doctor1.getName())) {
+                    System.out.println("\nAdd failed. The id or the name already exists in the list.\n");
                     return;
                 }
             }
@@ -141,7 +145,7 @@ public class Doctor extends Person {
 
             // output the treatment information to a text file.
             Utility.outputFile(doctor1, "C://JAVA_2_2022//project//data//doctor.txt");
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -163,5 +167,3 @@ public class Doctor extends Person {
     }// end method toString
 
 }// end class Doctor
-
-

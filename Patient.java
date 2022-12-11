@@ -41,9 +41,9 @@ public class Patient extends Person {
     public static void createPatient() {
         System.out.println("\n============= Add a patient ===============\n");
         System.out.print("Please enter the new patient's name: ");
-        String name = Utility.readString(16);
-        System.out.print("Please enter the month for the new patient's date of birth: ");
         try{
+            String name = Utility.readString(16);
+            System.out.print("Please enter the month for the new patient's date of birth: ");
             int month = Utility.readInt();
             System.out.print("Please enter the day for the new patient's date of birth: ");
             int day = Utility.readInt();
@@ -91,9 +91,9 @@ public class Patient extends Person {
         System.out.println("Before you make an appointment, make sure the patient and doctor information is added to the list.");
         // Prompt the user to input information
         System.out.print("Please enter a appointment's id: ");
-        int id = Utility.readInt();
-        System.out.print("Please enter the month for the appointmentDate: ");
         try{
+            int id = Utility.readInt();
+            System.out.print("Please enter the month for the appointmentDate: ");
             int month = Utility.readInt();
             System.out.print("Please enter the day for the appointmentDate: ");
             int day = Utility.readInt();
@@ -159,97 +159,107 @@ public class Patient extends Person {
         System.out.println("\n=============Modify Appointment================");
         System.out.println("Before you modify an appointment, make sure the patient and doctor information is added to the list.");
         System.out.println("Please select the appointment number to be modified (-1 to exit):");
-        int updateId = Utility.readInt();
-        if (updateId == -1) {
-            System.out.println("==========Abandon modify appointment information=============");
-        }
-
-        // iterate over the elements in the appointment list
-        for (Appointment appointment : appointments) {
-            if (appointment.getAppointmentId() == updateId) {
-                // If the appointment number is matched, add 1 to index
-                index++;
-                System.out.print("month(" + appointment.getAppointmentDate() + "):");
-                int month = Utility.readInt();
-                System.out.print("day(" + appointment.getAppointmentDate() + "):");
-                int day = Utility.readInt();
-                System.out.print("year(" + appointment.getAppointmentDate() + "):");
-                int year = Utility.readInt();
-                LocalDate appointmentDate = LocalDate.of(year, month, day);
-                // appointment date must be after today
-                if (appointmentDate.isBefore(LocalDate.now())) {
-                    System.out.println("There is an error in your entry. Your appointment date must be after today");
-                    return;
-                }
-                appointment.setAppointmentDate(appointmentDate);
-
-                System.out.println("patientName(" + appointment.getPatientName() + "):");
-                String patientName = Utility.readString(16);
-                if (!"".equals(patientName)) {// modify
-                    appointment.setPatientName(patientName);
-                }
-
-                // noneMatch(): According to the judgment condition, if all elements do not
-                // match, show this patient is not in the list
-                if (patients.stream().noneMatch(o -> o.getName().equals(patientName))) {
-                    System.out.println(patientName
-                            + " is not in the patient list. Please add the patient information into system first.");
-                    return;
-                }
-
-                System.out.print("doctorName(" + appointment.getDoctorName() + "):");
-                String doctorName = Utility.readString(16);
-                if (!"".equals(doctorName)) {// modify
-                    appointment.setDoctorName(doctorName);
-                }
-
-                // noneMatch(): According to the judgment condition, if all elements do not
-                // match, show this patient is not in the list
-                if (Doctor.doctors.stream().noneMatch(o -> o.getName().equals(doctorName))) {
-                    System.out.println(doctorName
-                            + " is not in the doctor list. Please add the doctor information into system first.");
-                    return;
-                }
-
-                System.out.println("\n===========Successfully modify an appointment================\n");
-                System.out.println(appointment);
+        try{
+            int updateId = Utility.readInt();
+            if (updateId == -1) {
+                System.out.println("==========Abandon modify appointment information=============");
             }
+
+            // iterate over the elements in the appointment list
+            for (Appointment appointment : appointments) {
+                if (appointment.getAppointmentId() == updateId) {
+                    // If the appointment number is matched, add 1 to index
+                    index++;
+                    System.out.print("month(" + appointment.getAppointmentDate() + "):");
+                    int month = Utility.readInt();
+                    System.out.print("day(" + appointment.getAppointmentDate() + "):");
+                    int day = Utility.readInt();
+                    System.out.print("year(" + appointment.getAppointmentDate() + "):");
+                    int year = Utility.readInt();
+                    LocalDate appointmentDate = LocalDate.of(year, month, day);
+                    // appointment date must be after today
+                    if (appointmentDate.isBefore(LocalDate.now())) {
+                        System.out.println("There is an error in your entry. Your appointment date must be after today");
+                        return;
+                    }
+                    appointment.setAppointmentDate(appointmentDate);
+
+                    System.out.println("patientName(" + appointment.getPatientName() + "):");
+                    String patientName = Utility.readString(16);
+                    if (!"".equals(patientName)) {// modify
+                        appointment.setPatientName(patientName);
+                    }
+
+                    // noneMatch(): According to the judgment condition, if all elements do not
+                    // match, show this patient is not in the list
+                    if (patients.stream().noneMatch(o -> o.getName().equals(patientName))) {
+                        System.out.println(patientName
+                                + " is not in the patient list. Please add the patient information into system first.");
+                        return;
+                    }
+
+                    System.out.print("doctorName(" + appointment.getDoctorName() + "):");
+                    String doctorName = Utility.readString(16);
+                    if (!"".equals(doctorName)) {// modify
+                        appointment.setDoctorName(doctorName);
+                    }
+
+                    // noneMatch(): According to the judgment condition, if all elements do not
+                    // match, show this patient is not in the list
+                    if (Doctor.doctors.stream().noneMatch(o -> o.getName().equals(doctorName))) {
+                        System.out.println(doctorName
+                                + " is not in the doctor list. Please add the doctor information into system first.");
+                        return;
+                    }
+
+                    System.out.println("\n===========Successfully modify an appointment================\n");
+                    System.out.println(appointment);
+                }
+            }
+            // if index==-1, no matching record is found, output the information
+            if (index == -1) {
+                System.out.println("==========Modify appointment number does not exist==========");
+                return;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
-        // if index==-1, no matching record is found, output the information
-        if (index == -1) {
-            System.out.println("==========Modify appointment number does not exist==========");
-            return;
-        }
+        
     }
 
     // mathod to cancel an appointment
     public static void cancelAppointment() {
+        // Set a variable index to record whether an appointment was found
         int index = -1;
         System.out.println("\n================== Cancel Appointment ============");
         System.out.print("Please enter the appointment id(-1 exit): ");
-        int delId = Utility.readInt();
-        if (delId == -1) {
-            System.out.println("============= Abandon cancel appointment information =========");
-            return;
-        }
-        char choice = Utility.readConfirmSelection(); // Note this method already has a loop
-        if (choice == 'Y') {// confirm deletion
-            Iterator<Appointment> iterator = appointments.iterator();
-            while (iterator.hasNext()) {
-                Appointment appointment = iterator.next();
-                if (appointment.getAppointmentId() == delId) {
-                    index++;
-                    iterator.remove();
-                    System.out.println("============ Cancelling appointment information successfully ==========");
-                }
+        try{
+            int delId = Utility.readInt();
+            if (delId == -1) {
+                System.out.println("============= Abandon cancel appointment information =========");
+                return;
             }
-        } else {
-            System.out.println("=============Abandon cancelling appointment information=========");
-        }
-        if (index == -1) {
-            System.out.println("The appointment id you entered does not exist, please check the information.");
-
-        }
+            char choice = Utility.readConfirmSelection(); // Note this method already has a loop
+            if (choice == 'Y') {// confirm deletion
+                Iterator<Appointment> iterator = appointments.iterator();
+                while (iterator.hasNext()) {
+                    Appointment appointment = iterator.next();
+                    if (appointment.getAppointmentId() == delId) {
+                        index++;
+                        iterator.remove();
+                        System.out.println("============ Cancelling appointment information successfully ==========");
+                    }
+                }
+            } else {
+                System.out.println("=============Abandon cancelling appointment information=========");
+            }
+            // if index==-1, no matching record is found, output the information
+            if (index == -1) {
+                System.out.println("The appointment id you entered does not exist, please check the information.");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }    
     }// end method cancelAppointment
 
     // method for payments
@@ -262,11 +272,13 @@ public class Patient extends Person {
         int answer = Utility.readInt();
 
         switch (answer) {
+            // cash
             case 1:
                 System.out.println("***********************");
                 System.out.println("Bill will be paid in cash.\nThank you!");
                 System.out.println("***********************");
                 break;
+            //credit
             case 2:
                 System.out.println("\nPlease enter your credit card number.");
                 String cc = Utility.readString(16);
@@ -283,6 +295,7 @@ public class Patient extends Person {
                         + "\nVerification code: " + code + ".\nThank you.");
                 System.out.println("***********************");
                 break;
+            // debit
             case 3:
                 System.out.println("\n***********************");
                 System.out.println("Bill will be paid by debit.\nThank you!");
@@ -291,7 +304,7 @@ public class Patient extends Person {
             default:
                 System.out.println("\nYou must input the integer number(1-3)");
         }
-    }
+    }// end method payment
 
     // override toString
     @Override

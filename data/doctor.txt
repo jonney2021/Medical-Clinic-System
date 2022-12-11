@@ -1,0 +1,5 @@
+
+Doctor: 
+Name: john, Date of Birth: 2000-12-12, id: 1, specialty: er
+Doctor: 
+Name: johnn, Date of Birth: 1997-10-10, id: 2, specialty: er

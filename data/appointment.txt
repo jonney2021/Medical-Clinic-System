@@ -1,0 +1,5 @@
+
+Appointment:
+Patient: tom made an appointment for 2022-12-23 with Doctor john, the appointment id: 1
+Appointment:
+Patient: tomm made an appointment for 2022-12-26 with Doctor johnn, the appointment id: 2
