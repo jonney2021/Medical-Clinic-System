@@ -1,5 +1,5 @@
 
 Doctor: 
-Name: john, Date of Birth: 2000-12-12, id: 1, specialty: er
+Name: john, Date of Birth: 2000-11-11, id: 1, specialty: we
 Doctor: 
-Name: johnn, Date of Birth: 1997-10-10, id: 2, specialty: er
+Name: johnn, Date of Birth: 1999-11-11, id: 2, specialty: ew

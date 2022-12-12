@@ -95,7 +95,7 @@ public class Doctor extends Person {
             System.out.println(treatment);
 
             // output the treatment information to a text file.
-            Utility.outputFile(treatment, "C://JAVA_2_2022//project//data//treatment.txt");
+            Utility.outputFile(treatment, "C:\\JAVA_2_2022\\project\\data\\treatment.txt");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -144,7 +144,7 @@ public class Doctor extends Person {
             System.out.println(doctor1);
 
             // output the treatment information to a text file.
-            Utility.outputFile(doctor1, "C://JAVA_2_2022//project//data//doctor.txt");
+            Utility.outputFile(doctor1, "C:\\JAVA_2_2022\\project\\data\\doctor.txt");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

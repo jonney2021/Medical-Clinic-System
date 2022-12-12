@@ -1,5 +1,4 @@
-
 Patient: 
-Name: tom, Date of Birth: 1999-12-12, insuranceCompany: tttt
+Name: tom, Date of Birth: 1999-12-12, insuranceCompany: ttt
 Patient: 
-Name: tomm, Date of Birth: 1998-11-11, insuranceCompany: rrrr
+Name: tomm, Date of Birth: 1981-11-11, insuranceCompany: rttt
