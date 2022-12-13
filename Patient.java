@@ -1,5 +1,7 @@
 package project;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -214,6 +216,25 @@ public class Patient extends Person {
 
                     System.out.println("\n===========Successfully modify an appointment================\n");
                     System.out.println(appointment);
+                    File file = new File("C:\\JAVA_2_2022\\project\\data\\appointment.txt");
+                    //delete the original file
+                    if(file.exists()){
+                            file.delete();
+                    }
+
+                    FileOutputStream o = null;
+                    byte[] buff = new byte[] {};         
+                    File file1 = new File("C:\\JAVA_2_2022\\project\\data\\appointment.txt");
+                    // If the file does not exist, create a new one
+                    if (!file1.exists()) {
+                        file1.createNewFile();
+                    }
+                    buff = appointments.toString().getBytes();
+                    // append:true start writing from the end of the file and continue after the original data of the file
+                    o = new FileOutputStream(file1, true);
+                    o.write(buff);
+                    o.flush();
+                    o.close();
                 }
             }
             // if index==-1, no matching record is found, output the information
@@ -241,15 +262,34 @@ public class Patient extends Person {
             }
             char choice = Utility.readConfirmSelection(); // Note this method already has a loop
             if (choice == 'Y') {// confirm deletion
-                Iterator<Appointment> iterator = appointments.iterator();
+                Iterator<Appointment> iterator = appointments.iterator();           
                 while (iterator.hasNext()) {
                     Appointment appointment = iterator.next();
                     if (appointment.getAppointmentId() == delId) {
                         index++;
                         iterator.remove();
                         System.out.println("============ Cancelling appointment information successfully ==========");
+
+                        File file = new File("C:\\JAVA_2_2022\\project\\data\\appointment.txt");
+                        //delete the original file
+                        if(file.exists()){
+                            file.delete();
+                        }              
                     }
                 }
+                FileOutputStream o = null;
+                byte[] buff = new byte[] {};         
+                File file1 = new File("C:\\JAVA_2_2022\\project\\data\\appointment.txt");
+                // If the file does not exist, create a new one
+                if (!file1.exists()) {
+                    file1.createNewFile();
+                }
+                buff = appointments.toString().getBytes();
+                // append:true start writing from the end of the file and continue after the original data of the file
+                o = new FileOutputStream(file1, true);
+                o.write(buff);
+                o.flush();
+                o.close();
             } else {
                 System.out.println("=============Abandon cancelling appointment information=========");
             }

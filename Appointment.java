@@ -73,7 +73,7 @@ public class Appointment {
     // override method toString
     @Override
     public String toString() {
-        return "Appointment:\nPatient: " + getPatientName() + " made an appointment for " + getAppointmentDate() + " with Doctor "
+        return "Appointment:\nPatient " + getPatientName() + " made an appointment for " + getAppointmentDate() + " with Doctor "
                 + getDoctorName() + ", the appointment id: " + appointmentId + "\n";
     }// end method to String
 
